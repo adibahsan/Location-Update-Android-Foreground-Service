@@ -46,35 +46,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
 
-//import androidx.annotation.NonNull;
-//import androidx.core.app.NotificationCompat;
-//import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-/**
- * A bound and started service that is promoted to a foreground service when location updates have
- * been requested and all clients unbind.
- *
- * For apps running in the background on "O" devices, location is computed only once every 10
- * minutes and delivered batched every 30 minutes. This restriction applies even to apps
- * targeting "N" or lower which are run on "O" devices.
- *
- * This sample show how to use a long-running service for location updates. When an activity is
- * bound to this service, frequent location updates are permitted. When the activity is removed
- * from the foreground, the service promotes itself to a foreground service, and location updates
- * continue. When the activity comes back to the foreground, the foreground service stops, and the
- * notification assocaited with that service is removed.
- */
 public class LocationUpdatesService extends Service {
 
     private static final String PACKAGE_NAME =
@@ -149,9 +123,6 @@ public class LocationUpdatesService extends Service {
     /**
      * Realtime location save in firestore or firebase*/
     GeoFire geoFire;
-//    FirebaseFirestore firebaseFirestore;
-//    DocumentReference documentReference;
-//    FirebaseAuth firebaseAuth;
 
     @SuppressWarnings("deprecation")
     public LocationUpdatesService() {
@@ -227,9 +198,7 @@ public class LocationUpdatesService extends Service {
         stopForeground(true);
         mChangingConfiguration = false;
 
-        // Register Firestore when service will restart
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseFirestore = FirebaseFirestore.getInstance();
+
         return mBinder;
     }
 
@@ -244,9 +213,6 @@ public class LocationUpdatesService extends Service {
         stopForeground(true);
         mChangingConfiguration = false;
 
-//        // Register Firestore when service will restart
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseFirestore = FirebaseFirestore.getInstance();
         super.onRebind(intent);
     }
 
@@ -439,40 +405,4 @@ public class LocationUpdatesService extends Service {
         return false;
     }
 
-
-    /**
-     * Save a value in realtime to firestore when user in background
-     * For foreground you have to call same method to activity
-     * */
-
-//    private void SavetoServer(){
-//        Toast.makeText(this, "Save to server", Toast.LENGTH_SHORT).show();
-//        Log.d("resMM", "Send to server");
-//        Log.d("resML", String.valueOf(latitude));
-//        Log.d("resMLL", String.valueOf(longitude));
-//
-//        Map<String, String> driverMap = new HashMap<>();
-//
-//        driverMap.put("name" , String.valueOf(latitude));
-//        driverMap.put("email" , String.valueOf(longitude));
-//
-//        documentReference = firebaseFirestore
-//                .collection("driverAvaliable")
-//                .document("newdriver");
-//
-//        documentReference.update("latitude", String.valueOf(latitude),
-//                                    "longitude", String.valueOf(longitude),
-//                                    "timeStamp", FieldValue.serverTimestamp())
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.d(TAG, "Error updating document", e);
-//            }
-//        });
-//    }
 }
