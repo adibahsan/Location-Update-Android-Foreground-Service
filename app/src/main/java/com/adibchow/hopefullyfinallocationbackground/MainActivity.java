@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements
             boolean permissionAccessCoarseLocationApproved =checkLocationPermission();
             locationPermissionChecker(permissionAccessCoarseLocationApproved);
         }
+
+
     }
 
     @Override
@@ -261,21 +263,15 @@ public class MainActivity extends AppCompatActivity implements
             if (backgroundLocationPermissionApproved) {
 
                 Log.d("Logger","Background Location Granted");
-                // App can access location both in the foreground and in the background.
-                // Start your service that doesn't have a foreground service type
-                // defined.
+
             } else {
-                // App can only access location in the foreground. Display a dialog
-                // warning the user that your app must have all-the-time access to
-                // location in order to function properly. Then, request background
-                // location.
+
                 ActivityCompat.requestPermissions(this, new String[] {
                                 Manifest.permission.ACCESS_BACKGROUND_LOCATION},
                         PERMISSION_REQUEST_CODE);
             }
         } else {
-            // App doesn't have access to the device's location at all. Make full request
-            // for permission.
+
             ActivityCompat.requestPermissions(this, new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_BACKGROUND_LOCATION
